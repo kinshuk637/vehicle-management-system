@@ -1,0 +1,36 @@
+.nav{
+    display: block;
+    width: 100%;
+    margin: 0;
+}
+
+.nav ul{
+	background-color: brown;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+ul.topnav li{
+	list-style: none;
+    float: left;
+    margin: 5px;
+}
+ul.topnav li.topnav-right{
+	float: right;
+}
+ul.topnav li a{
+	display: block;
+	text-decoration: none;
+	min-height: 16px;
+	text-align: center;
+	padding: 15px;
+	color:white;
+}
+ul.topnav li a:hover{
+	background-color: white;
+	color: brown;
+}
+.dashboard-body{
+    padding: 20px;
+    font-size: large;
+}
