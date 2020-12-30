@@ -95,9 +95,9 @@ return (
     <div className="navbar">
     <div className="nav">
         <ul className="topnav">
-            <li><a href="/dashboard">MY DASHBOARD</a></li>
-            <li><a href="/dashboard/challans">CHALLANS</a></li>
-            <li><a href="#home">TOTAL FINE</a></li>
+            <li><a href={"/dashboard?vehicleregno="+this.state.vehicleregno}>MY DASHBOARD</a></li>
+            <li><a href={"/dashboard/challans?vehicleregno="+this.state.vehicleregno}>CHALLANS</a></li>
+            <li><a href={"/dashboard/total-fine?vehicleregno="+this.state.vehicleregno}>TOTAL FINE</a></li>
             <li className="topnav-right"><a onClick={this.onLogoutClick}>LOGOUT</a></li>
         </ul>
     </div>
@@ -109,6 +109,9 @@ return (
         <p>Address: {this.state.address}</p>
         <p>Mobile Number: {this.state.mobile_no}</p>
         <p>Email: {this.state.email}</p>
+    </div>
+    <div className="ftr">
+        All Rights reserved
     </div>
   </div>
     );

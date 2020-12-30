@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../actions/authActions";
+import { loginAdmin } from "../actions/adminAuthActions";
 import classnames from "classnames";
-class Login extends Component {
+class adminLogin extends Component {
   constructor() {
     super();
     this.state = {
-      vehicle_reg_no: "",
+      id_card_no: "",
       password: "",
       errors: {}
     };
@@ -17,14 +17,14 @@ class Login extends Component {
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard?vehicleregno="+this.state.vehicle_reg_no);
+    if (this.props.auth.isAdminAuthenticated) {
+      this.props.history.push("/admin-dashboard?idcardno="+this.state.id_card_no);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard?vehicleregno="+this.state.vehicle_reg_no); // push user to dashboard when they login
+    if (nextProps.auth.isAdminAuthenticated) {
+      this.props.history.push("/admin-dashboard?idcardno="+this.state.id_card_no); // push user to dashboard when they login
     }
 if (nextProps.errors) {
       this.setState({
@@ -37,57 +37,47 @@ onChange = e => {
   };
 onSubmit = e => {
     e.preventDefault();
-const userData = {
-      vehicle_reg_no: this.state.vehicle_reg_no,
+const adminData = {
+      id_card_no: this.state.id_card_no,
       password: this.state.password
     };
-console.log(userData);
-this.props.loginUser(userData);
+console.log(adminData);
+this.props.loginAdmin(adminData);
   };
 render() {
     const { errors } = this.state;
 return (
-  <div>
-    <div className="navbar">
-      <div className="nav">
-        <ul className="topnav">
-            <li><a href="/">HOME</a></li>
-            <li className="topnav-right"><a href="/login">LOGIN</a></li>
-            <li className="topnav-right"><a href="/register">REGISTER</a></li>
-        </ul>
-      </div>
-      </div>
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
+            <Link to="/admin-section" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
               home
             </Link>
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
-                <b>Login</b> below
+                <b>Admin Login</b>
               </h4>
               <p className="grey-text text-darken-1">
-                Don't have an account? <Link to="/register">Register</Link>
+                Don't have an account? <Link to="/admin-register">Register</Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.vehicle_reg_no}
-                  error={errors.vehicle_reg_no}
-                  id="vehicle_reg_no"
+                  value={this.state.id_card_no}
+                  error={errors.id_card_no}
+                  id="id_card_no"
                   type="text"
                   className={classnames("", {
-                    invalid: errors.vehicle_reg_no || errors.vehicle_reg_nonotfound
+                    invalid: errors.id_card_no || errors.id_card_nonotfound
                   })}
                 />
-                <label htmlFor="vehicle_reg_no">Vehicle Registration Number</label>
+                <label htmlFor="id_card_no">ID Card Number</label>
                 <span className="red-text">
-                  {errors.vehicle_reg_no}
-                  {errors.vehicle_reg_nonotfound}
+                  {errors.id_card_no}
+                  {errors.id_card_nonotfound}
                 </span>
               </div>
               <div className="input-field col s12">
@@ -125,13 +115,12 @@ return (
           </div>
         </div>
       </div>
-      </div>
     );
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+adminLogin.propTypes = {
+  loginAdmin: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -141,5 +130,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { loginUser }
-)(Login);
+  { loginAdmin }
+)(adminLogin);

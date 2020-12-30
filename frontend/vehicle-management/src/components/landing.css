@@ -1,0 +1,9 @@
+.row{
+    margin-top: 20px;
+}
+.landing-body{
+    background-color: gray;
+    background-image:url("E:/Web_dev/vehicle-management-system/frontend/vehicle-management/src/components/road-image2.jpg");
+    background-size: cover;
+    text-align: center;
+}

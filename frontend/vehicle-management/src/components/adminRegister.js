@@ -3,19 +3,17 @@ import { Link, withRouter } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../actions/authActions";
+import { registerAdmin } from "../actions/adminAuthActions";
 import classnames from "classnames";
 
-class Register extends Component {
+class adminRegister extends Component {
   constructor() {
     super();
     this.state = {
-      vehicle_reg_no: "",
-      owner_name: "",
-      dob: new Date(),
-      address: "",
+      id_card_no: "",
+      admin_name: "",
+      office_location: "",
       mobile_no: "",
-      email: "",
       password: "",
       password2: "",
       errors: {}
@@ -24,8 +22,8 @@ class Register extends Component {
 
   componentDidMount() {
     // If logged in and user navigates to Register page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+    if (this.props.auth.isAdminAuthenticated) {
+      this.props.history.push("/admin-dashboard");
     }
   }
 
@@ -41,92 +39,70 @@ onChange = e => {
   };
 onSubmit = e => {
     e.preventDefault();
-const newUser = {
-    vehicle_reg_no: this.state.vehicle_reg_no,
-    owner_name: this.state.owner_name,
-    dob: this.state.dob,
-    address: this.state.address,
+const newAdmin = {
+    id_card_no: this.state.id_card_no,
+    admin_name: this.state.admin_name,
+    office_location: this.state.office_location,
     mobile_no: this.state.mobile_no,
-    email: this.state.email,
     password: this.state.password,
-    password2: this.state.password2,
+    password2: this.state.password2
 };
 
-this.props.registerUser(newUser, this.props.history); 
-console.log(newUser);
+this.props.registerAdmin(newAdmin, this.props.history); 
+console.log(newAdmin);
   };
 render() {
     const { errors } = this.state;
 return (
-  <div>
-    <div className="navbar">
-      <div className="nav">
-        <ul className="topnav">
-            <li><a href="/">HOME</a></li>
-            <li className="topnav-right"><a href="/login">LOGIN</a></li>
-            <li className="topnav-right"><a href="/register">REGISTER</a></li>
-        </ul>
-      </div>
-      </div>
       <div className="container">
         <div className="row">
           <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
+            <Link to="/admin-section" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
               home
             </Link>
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
-                <b>Register</b> below
+                <b>Register Admin</b>
               </h4>
               <p className="grey-text text-darken-1">
-                Already have an account? <Link to="/login">Log in</Link>
+                Already have an admin account? <Link to="/admin-login">Log in</Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.vehicle_reg_no}
-                  error={errors.vehicle_reg_no}
-                  id="vehicle_reg_no"
+                  value={this.state.id_card_no}
+                  error={errors.id_card_no}
+                  id="id_card_no"
                   type="text"
                 />
-                <label htmlFor="vehicle_reg_no">Vehicle Registration Number</label>
+                <label htmlFor="id_card_no">ID Card Number</label>
               </div>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.owner_name}
-                  error={errors.owner_name}
-                  id="owner_name"
+                  value={this.state.admin_name}
+                  error={errors.admin_name}
+                  id="admin_name"
                   type="text"
                   className={classnames("", {
-                    invalid: errors.owner_name
+                    invalid: errors.admin_name
                   })}
                 />
-                <label htmlFor="owner_name">Owner's Name</label>
-                <span className="red-text">{errors.owner_name}</span>
+                <label htmlFor="owner_name">Admin Name</label>
+                <span className="red-text">{errors.admin_name}</span>
               </div>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.dob}
-                  error={errors.dob}
-                  id="dob"
-                  type="date"
-                />
-                <label htmlFor="dob">Date of Birth</label>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.address}
-                  error={errors.address}
-                  id="address"
+                  value={this.state.office_location}
+                  error={errors.office_location}
+                  id="office_location"
                   type="text"
                 />
-                <label htmlFor="address">Address</label>
+                <label htmlFor="office_location">Office Location</label>
               </div>
               <div className="input-field col s12">
                 <input
@@ -137,20 +113,6 @@ return (
                   type="text"
                 />
                 <label htmlFor="mobile_no">Mobile Number</label>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
-                  className={classnames("", {
-                    invalid: errors.email
-                  })}
-                />
-                <label htmlFor="email">Email</label>
-                <span className="red-text">{errors.email}</span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -199,13 +161,12 @@ return (
           </div>
         </div>
       </div>
-      </div>
     );
   }
 }
 
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
+adminRegister.propTypes = {
+  registerAdmin: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -217,5 +178,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
+  { registerAdmin }
+)(withRouter(adminRegister));

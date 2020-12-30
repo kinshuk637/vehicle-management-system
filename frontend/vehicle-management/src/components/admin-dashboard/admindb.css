@@ -1,0 +1,40 @@
+.admin-nav{
+    display: block;
+    width: 100%;
+    margin: 0;
+}
+
+.admin-nav ul{
+	background-color: blue;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+ul.admin-topnav li{
+	list-style: none;
+    float: left;
+    margin: 5px;
+}
+ul.admin-topnav li.admin-topnav-right{
+	float: right;
+}
+ul.admin-topnav li a{
+	display: block;
+	text-decoration: none;
+	min-height: 16px;
+	text-align: center;
+	padding: 15px;
+	color:white;
+}
+ul.admin-topnav li a:hover{
+	background-color: white;
+	color: blue;
+}
+.dashboard-body{
+    padding: 20px;
+    font-size: large;
+}
+
+.challan-form{
+	margin: 30px;
+}

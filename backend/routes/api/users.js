@@ -7,7 +7,7 @@ const keys = require("../../config/keys");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
-const User = require("../../models/user.model");
+let User = require("../../models/user.model");
 
 
 
@@ -59,6 +59,29 @@ router.post("/register", (req, res) => {
         });
       }
     });
+  });
+
+
+  router.post("/add-fine/:vehicleregno", (req, res) => {
+    User.findOne({'vehicle_reg_no': req.params.vehicleregno})
+    .then( user => {
+      user.total_fine_amount = user.total_fine_amount + Number(req.body.fine_amount);
+
+      user.save()
+        .then(() => res.json('Fine Added!'))
+        .catch(err => res.status(400).json('Error: '+err));
+    })
+  });
+
+  router.post("/pay-fine/:vehicleregno", (req, res) => {
+    User.findOne({'vehicle_reg_no': req.params.vehicleregno})
+    .then( user => {
+      user.total_fine_amount = user.total_fine_amount - Number(req.body.fine_amount);
+
+      user.save()
+        .then(() => res.json('Fine Payed!'))
+        .catch(err => res.status(400).json('Error: '+err));
+    })
   });
 
 
